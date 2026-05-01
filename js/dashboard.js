@@ -75,8 +75,8 @@ class Dashboard {
     // 統計計算
     const stats = this.calculateStats(items, warningDays);
 
-    // 要対応件数（期限切れ + 7日以内）
-    const urgent = stats.expired + stats.sevenDays;
+    // 要対応件数（期限切れ + 7日以内 + 30日以内）
+    const urgent = stats.expired + stats.sevenDays + stats.thirtyDays;
     const heroValue = document.getElementById('heroValue');
     if (heroValue) {
       heroValue.textContent = urgent;

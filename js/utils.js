@@ -41,7 +41,7 @@ function formatDateJP(dateString) {
  * @returns {number} 残り日数（マイナスは期限切れ）
  */
 function getDaysUntilExpiry(expiryDate) {
-  if (!expiryDate) return Infinity;
+  if (!expiryDate) return null;
   const today = new Date(getCurrentDate() + 'T00:00:00');
   const expiry = new Date(expiryDate + 'T00:00:00');
   const diffTime = expiry - today;

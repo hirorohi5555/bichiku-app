@@ -475,7 +475,7 @@ class StockApp {
 
     this.currentQuantityId = id;
     this.quantityItemName.textContent = item.name;
-    this.currentQuantity.textContent = item.quantity;
+    this.currentQuantity.textContent = item.qty !== undefined ? item.qty : (item.quantity || 0);
     this.currentUnit.textContent = item.unit || '個';
 
     this.quantityModal.classList.add('is-open');
