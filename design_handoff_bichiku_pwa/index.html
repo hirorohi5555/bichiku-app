@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=1440, initial-scale=1" />
+  <title>備蓄管理 — プロトタイプ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #1A1D24;
+      --ink-2: #4A5060;
+      --ink-3: #8A8F9C;
+      --line: #E6E8EC;
+      --line-2: #F0F2F5;
+      --bg: #F5F6F8;
+      --paper: #FFFFFF;
+      --accent: oklch(0.55 0.10 240);
+      --accent-2: oklch(0.62 0.09 240);
+      --accent-soft: oklch(0.96 0.018 240);
+      --ok: oklch(0.62 0.09 155);
+      --ok-soft: oklch(0.95 0.04 155);
+      --warn: oklch(0.72 0.13 75);
+      --warn-soft: oklch(0.96 0.05 80);
+      --danger: oklch(0.58 0.16 25);
+      --danger-soft: oklch(0.95 0.04 25);
+    }
+    html, body { margin: 0; padding: 0; }
+    body {
+      background:
+        radial-gradient(1200px 800px at 12% -8%, #EEF1F6 0%, transparent 60%),
+        radial-gradient(1000px 700px at 100% 110%, #ECF0F6 0%, transparent 55%),
+        #F5F6F8;
+      font-family: 'Noto Sans JP', -apple-system, system-ui, sans-serif;
+      color: var(--ink);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    .stage {
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 56px 32px 96px;
+    }
+    .stage-head {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      gap: 32px; margin-bottom: 40px;
+    }
+    .eyebrow {
+      font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--ink-3); font-weight: 600;
+    }
+    .stage-title {
+      font-size: 32px; font-weight: 700; letter-spacing: -0.01em;
+      margin: 6px 0 0; color: var(--ink);
+    }
+    .stage-sub { font-size: 14px; color: var(--ink-2); margin-top: 8px; max-width: 56ch; line-height: 1.6; }
+    .legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 12px; color: var(--ink-2); }
+    .legend-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 6px; vertical-align: middle; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 36px 28px;
+    }
+    @media (max-width: 1280px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 980px)  { .grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px)  { .grid { grid-template-columns: 1fr; } }
+
+    .frame-cell { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+    .frame-label {
+      font-size: 12px; color: var(--ink-2); letter-spacing: 0.04em;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .frame-num {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 11px; color: var(--ink-3);
+      border: 1px solid var(--line); border-radius: 4px;
+      padding: 2px 6px; background: #fff;
+    }
+    .frame-shrink { transform: scale(0.85); transform-origin: top center; margin-bottom: -130px; }
+    @media (max-width: 1280px) { .frame-shrink { transform: scale(0.92); margin-bottom: -70px; } }
+    @media (max-width: 640px)  { .frame-shrink { transform: scale(1); margin-bottom: 0; } }
+
+    .section-divider {
+      grid-column: 1 / -1;
+      display: flex; align-items: center; gap: 16px;
+      margin: 24px 0 -8px;
+      color: var(--ink-2); font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 600;
+    }
+    .section-divider::after {
+      content: ""; flex: 1; height: 1px;
+      background: linear-gradient(to right, var(--line), transparent);
+    }
+  </style>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="stage">
+    <div class="stage-head">
+      <div>
+        <div class="eyebrow">Prototype · 備蓄管理 PWA</div>
+        <h1 class="stage-title">家庭用備蓄品 在庫管理システム</h1>
+        <p class="stage-sub">iPhoneのホーム画面に追加して使うPWA。3〜4人家族の防災備蓄を想定。緑/黄/赤のカラーバッジで賞味期限ステータスを一目で把握、Web Notification・iCalendarエクスポート・JSONバックアップに対応します。下のフレームは主要画面を一通り並べたものです。</p>
+      </div>
+      <div class="legend">
+        <span><span class="legend-dot" style="background: var(--ok);"></span>余裕あり（30日超）</span>
+        <span><span class="legend-dot" style="background: var(--warn);"></span>期限間近（30日以内）</span>
+        <span><span class="legend-dot" style="background: var(--danger);"></span>期限切れ・要対応</span>
+      </div>
+    </div>
+
+    <div id="grid" class="grid"></div>
+  </div>
+
+  <script src="data.js"></script>
+  <script type="text/babel" src="ios-frame.jsx"></script>
+  <script type="text/babel" src="tweaks-panel.jsx"></script>
+  <script type="text/babel" src="ui.jsx"></script>
+  <script type="text/babel" src="screens/home.jsx"></script>
+  <script type="text/babel" src="screens/inventory.jsx"></script>
+  <script type="text/babel" src="screens/add.jsx"></script>
+  <script type="text/babel" src="screens/detail.jsx"></script>
+  <script type="text/babel" src="screens/calendar.jsx"></script>
+  <script type="text/babel" src="screens/notifications.jsx"></script>
+  <script type="text/babel" src="screens/data.jsx"></script>
+  <script type="text/babel" src="screens/onboarding.jsx"></script>
+  <script type="text/babel" src="app.jsx"></script>
+</body>
+</html>

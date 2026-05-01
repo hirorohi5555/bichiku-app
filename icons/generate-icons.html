@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>アイコン生成ツール</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    canvas {
+      border: 1px solid #ccc;
+      margin: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #2196F3;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 5px;
+    }
+    button:hover {
+      background: #1976D2;
+    }
+    .info {
+      background: #f0f0f0;
+      padding: 15px;
+      border-radius: 4px;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>備蓄品管理システム - アイコン生成ツール</h1>
+
+  <div class="info">
+    <h2>使い方</h2>
+    <ol>
+      <li>下のボタンをクリックしてアイコンを生成します</li>
+      <li>各アイコンを右クリック → 「名前を付けて画像を保存」</li>
+      <li>192x192のアイコンを「icon-192.png」として保存</li>
+      <li>512x512のアイコンを「icon-512.png」として保存</li>
+      <li>保存したファイルをiconsフォルダに配置</li>
+    </ol>
+  </div>
+
+  <button onclick="generateIcons()">アイコンを生成</button>
+  <button onclick="downloadIcon192()">192x192をダウンロード</button>
+  <button onclick="downloadIcon512()">512x512をダウンロード</button>
+
+  <div>
+    <h3>192x192 アイコン</h3>
+    <canvas id="canvas192" width="192" height="192"></canvas>
+  </div>
+
+  <div>
+    <h3>512x512 アイコン</h3>
+    <canvas id="canvas512" width="512" height="512"></canvas>
+  </div>
+
+  <script>
+    function generateIcons() {
+      generateIcon(192, 'canvas192');
+      generateIcon(512, 'canvas512');
+    }
+
+    function generateIcon(size, canvasId) {
+      const canvas = document.getElementById(canvasId);
+      const ctx = canvas.getContext('2d');
+
+      // 背景色
+      ctx.fillStyle = '#2196F3';
+      ctx.fillRect(0, 0, size, size);
+
+      // 白い箱
+      const boxSize = size * 0.5;
+      const boxX = (size - boxSize) / 2;
+      const boxY = (size - boxSize) / 2;
+
+      ctx.fillStyle = 'white';
+      ctx.fillRect(boxX, boxY, boxSize, boxSize * 0.8);
+
+      // 上部の帯
+      ctx.fillStyle = '#1976D2';
+      ctx.fillRect(boxX + boxSize * 0.1, boxY + boxSize * 0.1, boxSize * 0.8, boxSize * 0.2);
+
+      // テキスト
+      ctx.fillStyle = 'white';
+      ctx.font = `bold ${size * 0.15}px sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('備', size / 2, size / 2 + boxSize * 0.15);
+    }
+
+    function downloadCanvas(canvasId, filename) {
+      const canvas = document.getElementById(canvasId);
+      const link = document.createElement('a');
+      link.download = filename;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
+
+    function downloadIcon192() {
+      downloadCanvas('canvas192', 'icon-192.png');
+    }
+
+    function downloadIcon512() {
+      downloadCanvas('canvas512', 'icon-512.png');
+    }
+
+    // ページ読み込み時に自動生成
+    window.addEventListener('load', generateIcons);
+  </script>
+</body>
+</html>
