@@ -289,7 +289,7 @@ class StockApp {
     // 数量調整ボタン
     document.querySelectorAll('.item-card__quantity-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
-        const id = e.target.dataset.id;
+        const id = e.currentTarget.dataset.id;
         this.openQuantityModal(id);
       });
     });
@@ -297,7 +297,7 @@ class StockApp {
     // 編集ボタン
     document.querySelectorAll('.item-card__edit-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
-        const id = e.target.dataset.id;
+        const id = e.currentTarget.dataset.id;
         this.openEditModal(id);
       });
     });
@@ -305,7 +305,7 @@ class StockApp {
     // 削除ボタン
     document.querySelectorAll('.item-card__delete-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
-        const id = e.target.dataset.id;
+        const id = e.currentTarget.dataset.id;
         this.handleDelete(id);
       });
     });
@@ -383,14 +383,14 @@ class StockApp {
     this.currentEditId = id;
     this.modalTitle.textContent = '備蓄品を編集';
 
-    // フォームに値を設定
-    this.itemName.value = item.name;
-    this.itemQuantity.value = item.quantity;
+    // フォームに値を設定（新旧両対応）
+    this.itemName.value = item.name || '';
+    this.itemQuantity.value = item.qty !== undefined ? item.qty : (item.quantity || 0);
     this.itemUnit.value = item.unit || '個';
-    this.itemCategory.value = item.category;
-    this.itemExpiryDate.value = item.expiryDate;
-    this.itemLocation.value = item.location || '';
-    this.itemNotes.value = item.notes || '';
+    this.itemCategory.value = item.cat || item.category || '食品';
+    this.itemExpiryDate.value = item.exp || item.expiryDate || '';
+    this.itemLocation.value = item.loc || item.location || '';
+    this.itemNotes.value = item.note || item.notes || '';
 
     this.itemModal.classList.add('is-open');
   }
