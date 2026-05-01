@@ -1,6 +1,6 @@
 // Service Worker - キャッシュとオフライン対応
 
-const CACHE_NAME = 'stock-management-v7';
+const CACHE_NAME = 'stock-management-v9';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -13,7 +13,9 @@ const ASSETS_TO_CACHE = [
   './js/dashboard.js',
   './js/tab-bar.js',
   './js/calendar.js',
+  './js/calendar-view.js',
   './js/notification.js',
+  './js/settings.js',
   './icons/icon-192.png',
   './icons/icon-512.png'
 ];

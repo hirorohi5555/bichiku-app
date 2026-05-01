@@ -107,8 +107,8 @@ class TabBar {
     const screens = {
       home: document.getElementById('screenHome'),
       list: document.getElementById('screenList'),
-      cal: null, // 未実装
-      set: null  // 未実装
+      cal: document.getElementById('screenCalendar'),
+      set: document.getElementById('screenSettings')
     };
 
     // 全ての画面を非表示
@@ -129,6 +129,16 @@ class TabBar {
       // 在庫一覧画面の場合はリストを更新
       if (tabId === 'list' && window.app) {
         window.app.renderItems();
+      }
+
+      // カレンダー画面の場合はカレンダービューを更新
+      if (tabId === 'cal' && window.calendarView) {
+        window.calendarView.update();
+      }
+
+      // 設定画面の場合は設定を読み込み
+      if (tabId === 'set' && window.settingsManager) {
+        window.settingsManager.loadSettings();
       }
     } else {
       // 未実装の画面

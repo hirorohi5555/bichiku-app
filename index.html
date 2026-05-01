@@ -173,6 +173,222 @@
         </div>
       </section>
     </div>
+
+    <!-- カレンダー画面 -->
+    <div class="screen screen--calendar" id="screenCalendar" style="display: none;">
+      <!-- ヘッダー -->
+      <div class="screen-header screen-header--large">
+        <div class="screen-header__content">
+          <h1 class="screen-header__title">カレンダー</h1>
+        </div>
+      </div>
+
+      <div class="calendar-container">
+        <!-- カレンダー出力ボタン -->
+        <div class="calendar-export">
+          <button class="calendar-export__button" id="calendarExportBtn">
+            <span class="calendar-export__icon">📅</span>
+            <div class="calendar-export__content">
+              <span class="calendar-export__label">カレンダーに出力</span>
+              <span class="calendar-export__description">賞味期限をiPhoneカレンダーに追加</span>
+            </div>
+          </button>
+        </div>
+
+        <!-- 期限切れ -->
+        <section class="calendar-section" id="calendarExpired" style="display: none;">
+          <h2 class="calendar-section__title">
+            <span class="calendar-section__icon">⚠️</span>
+            期限切れ
+            <span class="calendar-section__count" id="expiredCount"></span>
+          </h2>
+          <div class="calendar-items" id="expiredItems"></div>
+        </section>
+
+        <!-- 今週 -->
+        <section class="calendar-section" id="calendarThisWeek" style="display: none;">
+          <h2 class="calendar-section__title">
+            <span class="calendar-section__icon">🔔</span>
+            今週
+            <span class="calendar-section__count" id="thisWeekCount"></span>
+          </h2>
+          <div class="calendar-items" id="thisWeekItems"></div>
+        </section>
+
+        <!-- 今月 -->
+        <section class="calendar-section" id="calendarThisMonth" style="display: none;">
+          <h2 class="calendar-section__title">
+            <span class="calendar-section__icon">📌</span>
+            今月
+            <span class="calendar-section__count" id="thisMonthCount"></span>
+          </h2>
+          <div class="calendar-items" id="thisMonthItems"></div>
+        </section>
+
+        <!-- それ以降 -->
+        <section class="calendar-section" id="calendarLater" style="display: none;">
+          <h2 class="calendar-section__title">
+            <span class="calendar-section__icon">📆</span>
+            それ以降
+            <span class="calendar-section__count" id="laterCount"></span>
+          </h2>
+          <div class="calendar-items" id="laterItems"></div>
+        </section>
+
+        <!-- 空状態 -->
+        <div class="calendar-empty" id="calendarEmpty" style="display: none;">
+          <p class="calendar-empty__text">賞味期限のあるアイテムがありません</p>
+          <p class="calendar-empty__hint">備蓄品を追加してください</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 設定画面 -->
+    <div class="screen screen--settings" id="screenSettings" style="display: none;">
+      <!-- ヘッダー -->
+      <div class="screen-header screen-header--large">
+        <div class="screen-header__content">
+          <h1 class="screen-header__title">設定</h1>
+        </div>
+      </div>
+
+      <div class="settings-container">
+        <!-- 通知設定 -->
+        <section class="settings-section">
+          <h2 class="settings-section__title">通知設定</h2>
+          <div class="settings-group">
+            <div class="settings-item">
+              <div class="settings-item__content">
+                <label class="settings-item__label" for="settingNotificationEnabled">通知を有効にする</label>
+                <p class="settings-item__description">賞味期限が近づいたら通知します</p>
+              </div>
+              <label class="toggle">
+                <input type="checkbox" id="settingNotificationEnabled">
+                <span class="toggle__slider"></span>
+              </label>
+            </div>
+
+            <div class="settings-item">
+              <div class="settings-item__content">
+                <label class="settings-item__label" for="settingWarningDays">警告日数</label>
+                <p class="settings-item__description">この日数以内の商品を警告表示</p>
+              </div>
+              <select id="settingWarningDays" class="settings-select">
+                <option value="7">7日</option>
+                <option value="14">14日</option>
+                <option value="30">30日</option>
+                <option value="60">60日</option>
+              </select>
+            </div>
+
+            <div class="settings-item">
+              <div class="settings-item__content">
+                <label class="settings-item__label" for="settingCheckTime">定期チェック時刻</label>
+                <p class="settings-item__description">毎日この時刻に賞味期限をチェック</p>
+              </div>
+              <input type="time" id="settingCheckTime" class="settings-input">
+            </div>
+          </div>
+        </section>
+
+        <!-- 表示設定 -->
+        <section class="settings-section">
+          <h2 class="settings-section__title">表示設定</h2>
+          <div class="settings-group">
+            <div class="settings-item">
+              <div class="settings-item__content">
+                <label class="settings-item__label" for="settingDefaultSort">デフォルト並び順</label>
+                <p class="settings-item__description">在庫一覧の初期並び順</p>
+              </div>
+              <select id="settingDefaultSort" class="settings-select">
+                <option value="exp">賞味期限順</option>
+                <option value="name">品名順</option>
+                <option value="cat">カテゴリ順</option>
+                <option value="createdAt">登録日順</option>
+              </select>
+            </div>
+
+            <div class="settings-item">
+              <div class="settings-item__content">
+                <label class="settings-item__label" for="settingDefaultFilter">デフォルトフィルタ</label>
+                <p class="settings-item__description">在庫一覧の初期フィルタ</p>
+              </div>
+              <select id="settingDefaultFilter" class="settings-select">
+                <option value="all">すべて</option>
+                <option value="食品">食品</option>
+                <option value="飲料">飲料</option>
+                <option value="医薬品">医薬品</option>
+                <option value="日用品">日用品</option>
+                <option value="その他">その他</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <!-- データ管理 -->
+        <section class="settings-section">
+          <h2 class="settings-section__title">データ管理</h2>
+          <div class="settings-group">
+            <button class="settings-button" id="settingExportJson">
+              <span class="settings-button__icon">📥</span>
+              <div class="settings-button__content">
+                <span class="settings-button__label">JSONエクスポート</span>
+                <span class="settings-button__description">データをバックアップ</span>
+              </div>
+            </button>
+
+            <button class="settings-button" id="settingImportJson">
+              <span class="settings-button__icon">📤</span>
+              <div class="settings-button__content">
+                <span class="settings-button__label">JSONインポート</span>
+                <span class="settings-button__description">データを復元</span>
+              </div>
+            </button>
+
+            <button class="settings-button settings-button--danger" id="settingClearData">
+              <span class="settings-button__icon">🗑️</span>
+              <div class="settings-button__content">
+                <span class="settings-button__label">全データ削除</span>
+                <span class="settings-button__description">すべてのデータを削除します</span>
+              </div>
+            </button>
+          </div>
+        </section>
+
+        <!-- アプリ情報 -->
+        <section class="settings-section">
+          <h2 class="settings-section__title">アプリ情報</h2>
+          <div class="settings-group">
+            <div class="settings-info">
+              <div class="settings-info__item">
+                <span class="settings-info__label">バージョン</span>
+                <span class="settings-info__value">1.0.0</span>
+              </div>
+              <div class="settings-info__item">
+                <span class="settings-info__label">最終更新</span>
+                <span class="settings-info__value">2026-05-01</span>
+              </div>
+            </div>
+
+            <button class="settings-button" id="settingHelp">
+              <span class="settings-button__icon">ℹ️</span>
+              <div class="settings-button__content">
+                <span class="settings-button__label">使い方を見る</span>
+                <span class="settings-button__description">アプリの使い方ガイド</span>
+              </div>
+            </button>
+
+            <button class="settings-button" id="settingFeedback">
+              <span class="settings-button__icon">💬</span>
+              <div class="settings-button__content">
+                <span class="settings-button__label">フィードバック送信</span>
+                <span class="settings-button__description">改善要望・バグ報告</span>
+              </div>
+            </button>
+          </div>
+        </section>
+      </div>
+    </div>
   </main>
 
   <!-- タブバーナビゲーション -->
@@ -334,6 +550,8 @@
   <script src="./js/calendar.js"></script>
   <script src="./js/notification.js"></script>
   <script src="./js/dashboard.js"></script>
+  <script src="./js/calendar-view.js"></script>
+  <script src="./js/settings.js"></script>
   <script src="./js/tab-bar.js"></script>
   <script src="./js/app.js"></script>
 
