@@ -414,13 +414,13 @@ class StockApp {
       quantity: parseFloat(this.itemQuantity.value),
       unit: this.itemUnit.value.trim() || '個',
       category: this.itemCategory.value,
-      expiryDate: this.itemExpiryDate.value,
+      expiryDate: this.itemExpiryDate.value || null,
       location: this.itemLocation.value.trim(),
       notes: this.itemNotes.value.trim()
     };
 
     // バリデーション
-    if (!itemData.name || !itemData.category || !itemData.expiryDate) {
+    if (!itemData.name || !itemData.category) {
       showToast('必須項目を入力してください', 3000, 'error');
       return;
     }

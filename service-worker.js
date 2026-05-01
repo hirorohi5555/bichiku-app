@@ -1,6 +1,6 @@
 // Service Worker - キャッシュとオフライン対応
 
-const CACHE_NAME = 'stock-management-v6';
+const CACHE_NAME = 'stock-management-v7';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',

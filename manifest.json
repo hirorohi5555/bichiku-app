@@ -1,6 +1,6 @@
 {
-  "name": "備蓄品管理システム",
-  "short_name": "備蓄品管理",
+  "name": "StockMGシステム",
+  "short_name": "StockMG",
   "description": "家庭用備蓄品の在庫を管理するPWAアプリ",
   "start_url": "./index.html",
   "display": "standalone",

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="家庭用備蓄品の在庫管理PWAアプリ">
   <meta name="theme-color" content="#5A6FA0">
-  <title>備蓄品管理システム</title>
+  <title>StockMGシステム</title>
 
   <!-- PWA Manifest -->
   <link rel="manifest" href="./manifest.json">
@@ -13,7 +13,7 @@
   <!-- iOS用メタタグ -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="備蓄品管理">
+  <meta name="apple-mobile-web-app-title" content="StockMG">
   <link rel="apple-touch-icon" href="./icons/icon-192.png">
 
   <!-- Google Fonts -->
@@ -30,7 +30,7 @@
     <button class="header__menu-btn" id="menuBtn" aria-label="メニューを開く">
       <span class="menu-icon"></span>
     </button>
-    <h1 class="header__title">備蓄品管理</h1>
+    <h1 class="header__title">StockMG</h1>
     <div class="header__spacer"></div>
   </header>
 
@@ -138,7 +138,6 @@
       <div class="screen-header screen-header--large">
         <div class="screen-header__content">
           <h1 class="screen-header__title">在庫一覧</h1>
-          <p class="screen-header__subtitle" id="listSubtitle">0品目 · 期限が近い順</p>
         </div>
       </div>
 
@@ -240,8 +239,8 @@
         </div>
 
         <div class="form__group">
-          <label for="itemExpiryDate" class="form__label">賞味期限 *</label>
-          <input type="date" id="itemExpiryDate" class="form__input" required>
+          <label for="itemExpiryDate" class="form__label">賞味期限</label>
+          <input type="date" id="itemExpiryDate" class="form__input">
         </div>
 
         <div class="form__group">
